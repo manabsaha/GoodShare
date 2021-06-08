@@ -61,16 +61,16 @@
 </div>
 
 <?php
-$db = mysqli_connect('localhost','root','password','olx_schema');
-
+require('inc/config.php');
 if(isset($_POST['submit'])){
   $name = mysqli_escape_string($db,$_POST['name']) ;
   $mobile_no = mysqli_escape_string($db,$_POST['mob_no']);
   $user_type = mysqli_escape_string($db,$_POST['user_type']);
   $email_address = mysqli_escape_string($db,$_POST['email']);
+  $department = "cse";
   $password = mysqli_escape_string($db,$_POST['password']);
   
-  $query = "INSERT INTO Users (Nitc_email_id,User_name,Mobile_no,User_type,User_password) VALUES ('$email_address','$name','$mobile_no','$user_type','$password')";
+  $query = "INSERT INTO users (name,email,mobile,user_type,department,password) VALUES ('$name','$email_address','$mobile_no','$user_type','$department','$password')";
 
   $result = mysqli_query($db,$query);
   echo '$result';

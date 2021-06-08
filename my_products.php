@@ -45,8 +45,8 @@
 </nav>
 
 <?php
-$user_id = $_SESSION['email'];
-$query = "SELECT * FROM Advertisement where owner_id = '$user_id'";
+$user_id = $_SESSION['user_id'];
+$query = "SELECT * FROM advertisements where seller_id = '$user_id'";
 $result = mysqli_query($db,$query);
 if(mysqli_num_rows($result) == 0){
   echo "<script type='text/javascript'>alert('You have not Advertised any Product')</script>";

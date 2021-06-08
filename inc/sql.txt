@@ -1,0 +1,43 @@
+create table users(
+	user_id int primary key auto_increment,
+	name varchar(255),
+	email varchar(255) unique,
+	mobile varchar(255),
+	user_type varchar(255) default 'student',
+	department varchar(255),
+	password varchar(255)
+);
+
+create table advertisements(
+	ad_id int primary key auto_increment,
+	seller_id int,
+	date_of_post date,
+	product_name varchar(255),
+	product_desc varchar(255),
+	year_of_purchase int,
+	picture_url varchar(255),
+	price float,
+	availability varchar(255) default 'available',
+	buyer_id int default NULL,
+	foreign key(seller_id) references users(user_id),
+	foreign key(buyer_id) references users(user_id)
+);
+
+create table bookmarks(
+	ad_id int,
+	user_id int,
+	foreign key(ad_id) references advertisements(ad_id),
+	foreign key(user_id) references users(user_id)
+);
+
+
+create table messages(
+	msg_id int primary key auto_increment,
+	sender_id int,
+	receiver_id int,
+	message varchar(255),
+	msg_date varchar(255),
+	msg_time varchar(255),
+	foreign key(sender_id) references users(user_id),
+	foreign key(receiver_id) references users(user_id)
+);

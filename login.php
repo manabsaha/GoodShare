@@ -49,17 +49,19 @@
 </div>
 
 <?php
-  //$db = mysqli_connect('localhost','root','password','olx_schema');
    require('inc/config.php');
    if(isset($_POST['submit'])){
      $email_address = mysqli_escape_string($db,$_POST['email']);
      $password = mysqli_escape_string($db,$_POST['password']);
 
-     $query = "SELECT *FROM Users WHERE Nitc_email_id = '$email_address' AND User_password= '$password'";
+     $query = "SELECT *FROM users WHERE email = '$email_address' AND password= '$password'";
      $result = mysqli_query($db,$query);
 
      if(mysqli_num_rows($result)==1){
            $_SESSION['email'] = $email_address;
+           while($row = $result->fetch_assoc()) {
+                $_SESSION['user_id'] = $row['user_id'];
+            }
            $_SESSION['success'] = "You are now logged in";
            header('location: home.php');
      }
