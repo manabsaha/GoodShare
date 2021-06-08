@@ -33,6 +33,7 @@
         <li><a href="bought_products.php">BOUGHT PRODUCTS</a></li>
         <li><a href="message.php">MESSAGES</a></li>
         <li><a href="about_us.php">ABOUT US</a></li>
+        <li><a href="bookmarks.php">BOOKMARKS</a></li>
         <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $_SESSION['email']; ?><span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a href="change_password.php">Change Password</a></li>

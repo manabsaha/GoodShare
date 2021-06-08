@@ -1,12 +1,13 @@
 <?php 
    require('inc/config.php');
+   $empty_flag=1;
 ?>
 
 
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Purchase</title>
+	<title>Bookmarks</title>
 	
 	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="css/footer.css">
@@ -49,9 +50,14 @@
 
 <?php
 $user_id = $_SESSION['user_id'];
-$query = "SELECT * FROM advertisements WHERE seller_id <> '$user_id' AND availability = 'available' ORDER BY ad_id DESC";
+$query = "SELECT * FROM advertisements WHERE availability = 'available'  ORDER BY ad_id DESC";
 $result = mysqli_query($db,$query);
-while ($row = mysqli_fetch_assoc($result)) {?>
+while ($row = mysqli_fetch_assoc($result)) {
+    $ad_id=$row["ad_id"];
+    $query="SELECT * FROM bookmarks WHERE user_id = '$user_id' AND ad_id = '$ad_id'";
+    $bookmarked = mysqli_query($db,$query);
+    if(mysqli_num_rows($bookmarked) > 0){
+        $empty_flag=0;?>
     	<div class="container">
             <div class="row row-margin-bottom">
             <div class="col-md-9 no-padding lib-item" data-category="view">
@@ -91,26 +97,11 @@ while ($row = mysqli_fetch_assoc($result)) {?>
                             	<p>Department of <?php echo $row2["department"];?></p>
                             </div>
                             <div class="lib-row lib-price" style="margin-bottom: 8px;">
-                            <?php 
-                              $ad_id=$row['ad_id'];
-                              $query="SELECT * FROM bookmarks WHERE user_id = '$user_id' AND ad_id = '$ad_id'";
-                              $bookmarked = mysqli_query($db,$query);
-                              if(mysqli_num_rows($bookmarked) == 0){
-                            ?>
-                            
-                            <form action="set_bookmark.php" method="post">
+                            <form action="remove_bookmark.php" method="post">
                                   <input type="hidden" name="advt_id" value="<?php echo $row['ad_id']; ?>">
-                                    <button name='submit' type="submit" class="btn btn-success" style="margin-bottom: 8px;">Bookmark</button>
-                                  </form>
-                                  <?php }
-                                  else{
-                                    ?>
-                                  <form action="remove_bookmark.php" method="post">
-                                  <input type="hidden" name="purchase" value="1">
-                                  <input type="hidden" name="advt_id" value="<?php echo $row['ad_id']; ?>">
+                                  <input type="hidden" name="bookmark" value="1">
                                     <button name='remove' type="submit" class="btn btn-success" style="margin-bottom: 8px;">Remove Bookmark</button>
-                                  </form>
-                                  <?php } ?>
+                            </form>
                             </div>
                         </div>
                     </div>
@@ -120,6 +111,13 @@ while ($row = mysqli_fetch_assoc($result)) {?>
             
         </div>
 </div>
+<?php
+    }
+}
+if($empty_flag)
+{
+?>
+<h2 style='color:white; text-align:center'>NO BOOKMARKS FOUND</h2>
 <?php
 }
 ?>
