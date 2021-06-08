@@ -3,6 +3,7 @@
  <meta charset="utf-8">
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
  <link rel="stylesheet" type="text/css" href="css/global.css">
+ <title>Register</title>
 </head>
 <body class="bg">
 <div class="container-fluid bg">
@@ -25,15 +26,19 @@
   </div>
   <div class="form-group">
     <select class="form-control" id='user_type' name='user_type'>
-      <option value="0">Select</option>
-      <option value="Student">Student</option>
-      <option value="Staff">Staff</option>
-      <option value="Faculty">Faculty</option>
+      <option value="0" style="color: #000;">Select</option>
+      <option value="Student" style="color: #000;">Student</option>
+      <option value="Staff" style="color: #000;">Staff</option>
+      <option value="Faculty" style="color: #000;">Faculty</option>
     </select>
   </div>
   <div class="form-group">
     <label for="exampleInputEmail1">Email address</label>
     <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+  </div>
+  <div class="form-group">
+    <label for="dept">Department</label>
+    <input type="text" class="form-control" id="dept" name="dept" placeholder="Department" required>
   </div>
   <div class="form-group">
     <label for="exampleInputPassword1">Password</label>
@@ -67,7 +72,7 @@ if(isset($_POST['submit'])){
   $mobile_no = mysqli_escape_string($db,$_POST['mob_no']);
   $user_type = mysqli_escape_string($db,$_POST['user_type']);
   $email_address = mysqli_escape_string($db,$_POST['email']);
-  $department = "cse";
+  $department = mysqli_escape_string($db,$_POST['dept']);;
   $password = mysqli_escape_string($db,$_POST['password']);
   
   $query = "INSERT INTO users (name,email,mobile,user_type,department,password) VALUES ('$name','$email_address','$mobile_no','$user_type','$department','$password')";
@@ -76,6 +81,7 @@ if(isset($_POST['submit'])){
   echo '$result';
   if($result){
     echo "<script type='text/javascript'>alert('Submitted Successfully!!!')</script>";
+    header("Location: login.php");
   }
   else{
    echo "<script type='text/javascript'>alert('Registration Failed. Please try again')</script>"; 
