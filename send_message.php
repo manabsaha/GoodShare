@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Website Title</title>
+	<title>Send Message</title>
 	<link rel="stylesheet" type="text/css" href="css/advertise.css">
   <link rel="stylesheet" type="text/css" href="css/footer.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -23,7 +23,7 @@
     width: 100%;
   }
 </style>
-<body>
+<body style="background-color: #212F3C;color: #fff;">
 
 	<nav class="navbar navbar-inverse">
   <div class="container">

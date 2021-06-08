@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Website Title</title>
+	<title>Message</title>
 	 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="css/footer.css">
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -64,6 +64,9 @@
   </div>
 </div>
 </div>-->
+
+<a href="send_message.php"><center><button style="width: 50%;margin-bottom: 12px;" type="submit" id="sold" name="sold" class="btn btn-primary" >CLICK TO MESSAGE</button></center></a>  
+
 <?php
     $user_id = $_SESSION['user_id'];
     $query = "SELECT * FROM messages WHERE receiver_id ='$user_id' ORDER BY msg_date,msg_time DESC";
@@ -109,5 +112,3 @@
     } 
 
 ?>
-
-<a href="send_message.php"><center><button style="width: 50%;" type="submit" id="sold" name="sold" class="btn btn-primary" >CLICK TO MESSAGE</button></center></a>  

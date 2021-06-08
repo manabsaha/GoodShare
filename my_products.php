@@ -49,13 +49,15 @@ $user_id = $_SESSION['user_id'];
 $query = "SELECT * FROM advertisements where seller_id = '$user_id'";
 $result = mysqli_query($db,$query);
 if(mysqli_num_rows($result) == 0){
-  echo "<script type='text/javascript'>alert('You have not Advertised any Product')</script>";
+  //echo "<script type='text/javascript'>alert('You have not Advertised any Product')</script>";?>
+  <div>
+    <br>
+    <h1>You have not listed any products!</h1>
+  </div>
+  <?php
 }
 while ($row = mysqli_fetch_assoc($result)) {
-    //echo $row["item_name"];
-    //echo $row["date_of_init"];
-    //echo $row["date_of_exp"];
-    //echo '<br>';?>
+?>
     
       <div class="container">
             <div class="row row-margin-bottom">
@@ -79,9 +81,6 @@ while ($row = mysqli_fetch_assoc($result)) {
                             <div class="lib-row lib-data">
                               <p>Year Of Purchase: <b><?php echo $row["year_of_purchase"]; ?></b></p>
                             </div>
-                            <div class="lib-row lib-price">
-                              <p>Expected Price: Rs <b><?php echo $row["price"]; ?></b></p>
-                            </div>
                             <div class="lib-row lib-data">
                               <p>Ad posted on: <b><?php echo $row["date_of_post"]; ?></b></p>
                             </div>
@@ -98,6 +97,14 @@ while ($row = mysqli_fetch_assoc($result)) {
                             <?php 
                                }
                             ?>
+
+                            <div class="lib-row lib-price">
+                              <p><b>Rs <?php echo $row["price"]; ?></b></p>
+                            </div>
+                            <div class="lib-row lib-data" style="margin-bottom: 8px;">
+                              <button class="btn btn-primary">MARK AS SOLD</button>
+                              <button class="btn btn-warning">DON'T WANT TO SELL</button>
+                            </div>
                         </div>	
                     </div>
                 </div>

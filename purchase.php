@@ -26,7 +26,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <a class="navbar-brand" href="home.php">Adsells</a>
+      <a class="navbar-brand" href="home.php">GoodShare</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
@@ -44,80 +44,53 @@
       </ul>
     </div>
   </div>
-</nav>
-
-<!-- Side navigation -->
-<div class="sidenav">
-  <a href="laptop_purchase.php">Laptop</a>
-  <a href="mobile_purchase.php">Mobile</a>
-  <a href="book_purchase.php">Books</a>
-  <a href="purchase.php">All Products</a>
-</div>
-
-<!-- Page content -->
-<!-- Page content -->
-
-  
+</nav>  
 
 <?php
-
-$query = "SELECT * FROM Advertisement where buyer_id is null ";
+$user_id = $_SESSION['user_id'];
+$query = "SELECT * FROM advertisements WHERE seller_id <> '$user_id' AND availability = 'available'";
 $result = mysqli_query($db,$query);
-while ($row = mysqli_fetch_assoc($result)) {
-    //echo $row["item_name"];
-    //echo $row["date_of_init"];
-    //echo $row["date_of_exp"];
-    //echo '<br>';
-    $id = $row["advt_id"];
-    $email_id = $row["owner_id"];
-    if ($row["item_type"]==="Laptop") {
-    	$query2 = "SELECT * FROM Laptop WHERE product_id = '$id'";
-    	$result2 = mysqli_query($db,$query2);
-    	$row2 = mysqli_fetch_assoc($result2);
-        
-
-    	$query3 = "SELECT * FROM Users WHERE Nitc_email_id = '$email_id'";
-    	$result3 = mysqli_query($db,$query3);
-    	$row3 = mysqli_fetch_assoc($result3); 
-       ?>
+while ($row = mysqli_fetch_assoc($result)) {?>
     	<div class="container">
             <div class="row row-margin-bottom">
             <div class="col-md-9 no-padding lib-item" data-category="view">
                 <div class="lib-panel">
                     <div class="row box-shadow">
                         <div class="col-md-6">
-                            <img class="lib-img-show" src="images/laptop_hp.jpg">
+                            <img class="lib-img-show" src="<?php echo $row["picture"]; ?>">
                         </div>
                         
                         <div class="col-md-6">
                             <div class="lib-row lib-header">
-                                <b><?php echo $row["item_name"]; ?></b>
+                                <b><?php echo $row["product_name"]; ?></b>
                                 <div class="lib-header-seperator"></div>
                             </div>
-                            <div class="lib-row lib-header">
-                            	<p>Manufacturer: <b><?php echo $row2["manufacturer"]; ?></b></p>
+                            <div class="lib-row lib-data">
+                            	<p>Posted on: <?php echo $row["date_of_post"]; ?></p>
                             </div>
                             <div class="lib-row lib-data">
-                            	<p>Model Name: <b><?php echo $row2["model_name"]; ?></b></p>
-                            </div>
-                            <div class="lib-row lib-data">
-                            	<p>Year Of Purchase: <b><?php echo $row2["year_of_purchase"]; ?></b></p>
-                            </div>
-                            <div class="lib-row lib-data">
-                            	<p>Battery Status: <b><?php echo $row2["battery_status"]; ?></b></p>
+                            	<p>Year Of Purchase: <?php echo $row["year_of_purchase"]; ?></p>
                             </div>
                             <div class="lib-row lib-desc">
-                                <p> Ad Description: <?php echo $row2["ad_description"]; ?> </p>
+                                <p><?php echo $row["product_desc"]; ?> </p>
                                 <hr>
                             </div>
                             <div class="lib-row lib-price">
-                            	<p>Expected Price: Rs <b><?php echo $row2["expected_price"]; ?></b></p>
+                            	<p>Rs <?php echo $row["price"]; ?></p>
                             </div>
+                            <?php
+                                $seller_id = $row["seller_id"];
+                                $query = "SELECT name,email,department FROM users WHERE user_id = '$seller_id'";
+                                $result2 = mysqli_query($db,$query);
+                                $row2 = mysqli_fetch_assoc($result2);
+                            ?>
                             <div class="lib-row lib-data">
-                            	<p>Contact Details: <b><?php echo $row3["User_name"]." ".$row3["Mobile_no"]; ?></b></p>
+                                <p><?php echo $row2["name"];?></p>
+                                <p><?php echo $row2["email"];?></p>
+                            	<p>Department of <?php echo $row2["department"];?></p>
                             </div>
-                            <div class="lib-row lib-data">
-                            	<p>Email ID: <b><?php echo $row["owner_id"];?></b></p>
+                            <div class="lib-row lib-price" style="margin-bottom: 8px;">
+                                <button class="btn btn-success">Bookmark</button>
                             </div>
                         </div>
                     </div>
@@ -127,209 +100,11 @@ while ($row = mysqli_fetch_assoc($result)) {
             
         </div>
 </div>
-<?php
-    }
-    else if($row["item_type"]==="Mobile"){
-        $query2 = "SELECT * FROM Mobile WHERE product_id = '$id'";
-    	$result2 = mysqli_query($db,$query2);
-    	$row2 = mysqli_fetch_assoc($result2);
-        
-
-    	$query3 = "SELECT * FROM Users WHERE Nitc_email_id = '$email_id'";
-    	$result3 = mysqli_query($db,$query3);
-    	$row3 = mysqli_fetch_assoc($result3);
-
-    	?>
-        <div class="container">
-            <div class="row row-margin-bottom">
-            <div class="col-md-9 no-padding lib-item" data-category="view">
-                <div class="lib-panel">
-                    <div class="row box-shadow">
-                        <div class="col-md-6">
-                            <img class="lib-img-show" src="images/mobile.jpg">
-                        </div>
-                        
-                        <div class="col-md-6">
-                            <div class="lib-row lib-header">
-                               <b> <?php echo $row["item_name"]; ?></b>
-                                <div class="lib-header-seperator"></div>
-                            </div>
-                            <div class="lib-row lib-header">
-                            	<p>Manufacturer: <b><?php echo $row2["manufacturer"]; ?></b></p>
-                            </div>
-                            <div class="lib-row lib-data">
-                            	<p>Model Name: <b><?php echo $row2["model_name"]; ?></b></p>
-                            </div>
-                            <div class="lib-row lib-data">
-                            	<p>Year Of Purchase: <b><?php echo $row2["year_of_purchase"]; ?></b></p>
-                            </div>
-                            <div class="lib-row lib-desc">
-                                <p> Ad Description: <?php echo $row2["ad_description"]; ?> </p>
-                                <hr>
-                            </div>
-                            <div class="lib-row lib-price">
-                            	<p>Expected Price: Rs <b><?php echo $row2["expected_price"]; ?></b></p>
-                            </div>
-                            <div class="lib-row lib-data">
-                            	<p>Contact Details: <b><?php echo $row3["User_name"]." ".$row3["Mobile_no"]; ?></b></p>
-                            </div>
-                            <div class="lib-row lib-data">
-                            	<p>Email ID: <b><?php echo $row["owner_id"];?></b></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-1"></div>
-            
-        </div>
-</div>	
-<?php
-    }
-    else if($row["item_type"]==="Book"){
-        $query2 = "SELECT * FROM Book WHERE product_id = '$id'";
-    	$result2 = mysqli_query($db,$query2);
-    	$row2 = mysqli_fetch_assoc($result2);
-        
-
-    	$query3 = "SELECT * FROM Users WHERE Nitc_email_id = '$email_id'";
-    	$result3 = mysqli_query($db,$query3);
-    	$row3 = mysqli_fetch_assoc($result3);
-
-        
-        $i=0;
-        $query4 = "SELECT * FROM Author WHERE product_id = '$id'";
-        $result4 = mysqli_query($db,$query4);
-        while($row4 = mysqli_fetch_assoc($result4)){
-             if($i==0){
-                  $author1 = $row4["author_name"];
-                  $i++; 
-             }
-             else if($i==1){
-             	  $author2 = $row4["author_name"];
-             	  $i++;
-             }
-             else if($i==2){
-             	  $author3 = $row4["author_name"];
-             	  $i++;
-             }
-        }
-        /*$row4 = mysqli_fetch_assoc($result4);
-        $author = $row4["author_name"];
-    	*/?>
-    <div class="container">
-            <div class="row row-margin-bottom">
-            <div class="col-md-9 no-padding lib-item" data-category="view">
-                <div class="lib-panel">
-                    <div class="row box-shadow">
-                        <div class="col-md-6">
-                            <img class="lib-img-show" src="images/book.jpg">
-                        </div>
-                        
-                        <div class="col-md-6">
-                            <div class="lib-row lib-header">
-                                <b><?php echo $row["item_name"]; ?></b>
-                                <div class="lib-header-seperator"></div>
-                            </div>
-                            <div class="lib-row lib-header">
-                            	<p>Name of Book: <b><?php echo $row2["name_of_book"]; ?></b></p>
-                            </div>
-                            <div class="lib-row lib-data">
-                            	<p>Author Name: <b><?php echo $author1." ".$author2." ".$author3; ?></b></p>
-                            </div>
-                            <div class="lib-row lib-data">
-                            	<p>Condition: <b><?php echo $row2["condition_book"]; ?></b></p>
-                            </div>
-                            <div class="lib-row lib-desc">
-                                <p> Ad Description: <?php echo $row2["ad_description"]; ?> </p>
-                                <hr>
-                            </div>
-                            <div class="lib-row lib-price">
-                            	<p>Expected Price: Rs <b><?php echo $row2["expected_price"]; ?></b></p>
-                            </div>
-                            <div class="lib-row lib-data">
-                            	<p>Contact Details: <b><?php echo $row3["User_name"]." ".$row3["Mobile_no"]; ?></b></p>
-                            </div>
-                            <div class="lib-row lib-data">
-                            	<p>Email ID: <b><?php echo $row["owner_id"];?></b></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-1"></div>
-            
-        </div>
-</div>	
-    	
- <?php	
-    }
-  ?>
- 
-  
-     <!--<div class="card">
-  <img src="laptop_hp.jpg" alt="Denim Jeans" style="width:100%">
-  <h1><?php $row["item_name"];?></h1>
-  <p class="price">$19.99</p>
-  <p>Some text about the jeans..</p>
-  <p><button>Add to Cart</button></p>
-    </div>
--->
-  <!-- <section>
-  <div class="container py-3">
-    <div class="card">
-      <div class="row ">
-        <div class="col-md-4">
-            <img src="https://placeholdit.imgix.net/~text?txtsize=38&txt=400%C3%97400&w=400&h=400" class="w-100">
-          </div>
-          <div class="col-md-8 px-3">
-            <div class="card-block px-3">
-              <h4 class="card-title">Lorem ipsum dolor sit amet</h4>
-              <p class="card-text">Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
-              <p class="card-text">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-              <a href="#" class="btn btn-primary">Read More</a>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-  </div> 
-</section>  -->
-<!--<div class="container">
-            <div class="row row-margin-bottom">
-            <div class="col-md-8 no-padding lib-item" data-category="view">
-                <div class="lib-panel">
-                    <div class="row box-shadow">
-                        <div class="col-md-6">
-                            <img class="lib-img-show" src="laptop_hp.jpg">
-                        </div>
-                        <div class="col-md-6">
-                            <div class="lib-row lib-header">
-                                <?php echo $row["item_name"]; ?>
-                                <div class="lib-header-seperator"></div>
-                            </div>
-                            <div>
-                            	
-                            </div>
-                            <div class="lib-row lib-desc">
-                                  Losem sdfef    
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-1"></div>
-            
-        </div>
-</div>
-
--->
-  
 <?php
 }
-
 ?>
-<footer class="container-fluid bg-4 text-center">
+
+
+<!-- <footer class="container-fluid bg-4 text-center">
   <p>@ 2018 Copyright: <a href="home.php">www.adsells.com </a>| Designed by Prajwal Ghoradkar</p> 
-</footer>
+</footer> -->

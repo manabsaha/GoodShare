@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>My Products</title>
+	<title>Products Bought</title>
 	
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="css/footer.css">
@@ -14,7 +14,7 @@
   <link rel="stylesheet" type="text/css" href="css/advertise.css">
 	<link rel="stylesheet" type="text/css" href="css/purchase.css">
 </head>
-<body style="background-color: #212F3C;">
+<body style="background-color: #212F3C;color: #fff;">
  
 	<nav class="navbar navbar-inverse">
   <div class="container">
@@ -49,7 +49,12 @@ $user_id = $_SESSION['user_id'];
 $query = "SELECT * FROM advertisements where buyer_id = '$user_id'";
 $result = mysqli_query($db,$query);
 if(mysqli_num_rows($result) == 0){
-  echo "<script type='text/javascript'>alert('You have not Bought any Product')</script>";
+  //echo "<script type='text/javascript'>alert('You have not Bought any Product')</script>";?>
+  <div>
+    <br>
+    <h1>You have not bought any products!</h1>
+  </div>
+<?php
 }
 while ($row = mysqli_fetch_assoc($result)) {
     //echo $row["item_name"];
