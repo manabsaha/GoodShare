@@ -29,7 +29,7 @@
     		<li class="active"><a href="home.php">HOME</a></li>
     		<li><a href="my_products.php">MY PRODUCTS</a></li>
         <li><a href="bought_products.php">BOUGHT PRODUCTS</a></li>
-        <li><a href="message.php">BOOKMARKS</a></li>
+        <li><a href="message.php">MESSAGES</a></li>
     		<li><a href="about_us.php">ABOUT US</a></li>
     		<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="home.php" ><?php echo $_SESSION['email']; ?><span class="caret"></span></a>
     		<ul class="dropdown-menu">
