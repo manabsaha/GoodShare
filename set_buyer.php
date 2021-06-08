@@ -17,13 +17,8 @@
 	
 </head>
 <style type="text/css">
-  footer{
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-  }
 </style>
-<body>
+<body style="background-color: #212F3C;color:#fff;">
  
 	<nav class="navbar navbar-inverse">
   <div class="container">
@@ -33,7 +28,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <a class="navbar-brand" href="home.php">Adsells</a>
+      <a class="navbar-brand" href="home.php">GoodShare</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
@@ -54,12 +49,12 @@
 </nav>
 
 <div class="container">
-  <h2>Product Sold</h2>
+  <h2 style="text-align: center;">Product Sold</h2>
   <form class="form-horizontal" action="set_buyer.php" method="post">
     <div class="form-group">
-      <label class="control-label col-sm-3" for="advt_id">Advertisement ID</label>
+      <!-- <label class="control-label col-sm-3" for="product_name">Product ID: <?php echo $_POST['advt_id'] ?></label> -->
       <div class="col-sm-9">
-        <input type="number" class="form-control" id="advt_id" placeholder="Advertisement ID" name="advt_id" required>
+        <input type="hidden" value="<?php echo $_POST['advt_id'] ?>" name="advt_id" required disabled>
       </div>
     </div>
     <div class="form-group">
@@ -75,33 +70,37 @@
     </div>
 </form>
 </div>
-<footer class="container-fluid bg-4 text-center">
-  <p>@ 2018 Copyright: <a href="home.php">www.adsells.com </a>| Designed by Prajwal Ghoradkar</p> 
-</footer>
 
 <?php
 
 if(isset($_POST['submit'])){
-	$user_id = $_SESSION['email'];
+	$user_id = $_SESSION['user_id'];
 	$advt_id = mysqli_escape_string($db,$_POST['advt_id']);
-	$buyer_id = mysqli_escape_string($db,$_POST['buyer_email']);
+	$buyer_email = mysqli_escape_string($db,$_POST['buyer_email']);
 	//check if buyer id is not same to the id which is logged in
-	if($user_id == $buyer_id){
+	if($_SESSION['email'] == $buyer_email){
 		echo "<script type='text/javascript'>alert('Buyer ID cannot be same as Logged in ID')</script>";
 	}
+  else{
     //$advt_id = $_SESSION['ad_id'];
     $advt_id_num = (int)$advt_id;
     //echo gettype($advt_id_num);
     
-    $query = "UPDATE Advertisement SET buyer_id = '$buyer_id' WHERE advt_id = '$advt_id_num' and owner_id = '$user_id'";
+    $query = "SELECT user_id FROM users WHERE email = '$buyer_email'";
     $result = mysqli_query($db,$query);
-    
+    $row = mysqli_fetch_assoc($result);
+    $buyer_id = $row['user_id'];
+    $query = "UPDATE advertisements SET buyer_id = '$buyer_id',availability='sold' WHERE ad_id = '$advt_id_num' AND seller_id = '$user_id'";
+    $result = mysqli_query($db,$query);
     if($result){
        echo "<script type='text/javascript'>alert('Updated Succesfully')</script>";	
+       header("Location: my_products.php");
     }
     else{
     	echo "<script type='text/javascript'>alert('Failed! Try again')</script>";
     }
+
+  }
 }
 
 ?>

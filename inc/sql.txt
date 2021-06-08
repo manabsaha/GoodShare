@@ -15,7 +15,7 @@ create table advertisements(
 	product_name varchar(255),
 	product_desc varchar(255),
 	year_of_purchase int,
-	picture_url varchar(255),
+	picture_url varchar(255) default 'ad_image/ad_logo.jpg',
 	price float,
 	availability varchar(255) default 'available',
 	buyer_id int default NULL,

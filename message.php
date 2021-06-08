@@ -22,7 +22,7 @@
     border: 1px;
   }
 </style>
-<body style="background-color: #212F3C;">
+<body style="background-color: #212F3C;padding: 0;">
 
 	<nav class="navbar navbar-inverse">
   <div class="container">
@@ -32,7 +32,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <a class="navbar-brand" href="home.php">Adsells</a>
+      <a class="navbar-brand" href="home.php">GoodShare</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">

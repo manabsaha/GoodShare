@@ -14,7 +14,7 @@
   <link rel="stylesheet" type="text/css" href="css/advertise.css">
 	<link rel="stylesheet" type="text/css" href="css/purchase.css">
 </head>
-<body style="background-color: #212F3C;color: #fff;">
+<body style="background-color: #212F3C;padding: 0;">
  
 	<nav class="navbar navbar-inverse">
   <div class="container">
@@ -24,13 +24,13 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <a class="navbar-brand" href="home.php">Adsells</a>
+      <a class="navbar-brand" href="home.php">GoodShare</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
         <li><a href="home.php">HOME</a></li>
         <li><a href="my_products.php">MY PRODUCTS</a></li>
-        <li><a href="bought_products.php">MY PRODUCTS</a></li>
+        <li><a href="bought_products.php">BOUGHT PRODUCTS</a></li>
         <li><a href="message.php">MESSAGES</a></li>
         <li><a href="about_us.php">ABOUT US</a></li>
         <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $_SESSION['email']; ?><span class="caret"></span></a>
@@ -52,48 +52,41 @@ if(mysqli_num_rows($result) == 0){
   //echo "<script type='text/javascript'>alert('You have not Bought any Product')</script>";?>
   <div>
     <br>
-    <h1>You have not bought any products!</h1>
+    <h1 style="padding: 0 5%;">You have not bought any products!</h1>
   </div>
 <?php
 }
-while ($row = mysqli_fetch_assoc($result)) {
-    //echo $row["item_name"];
-    //echo $row["date_of_init"];
-    //echo $row["date_of_exp"];
-    //echo '<br>';?>
+while ($row = mysqli_fetch_assoc($result)) { ?>
       <div class="container">
             <div class="row row-margin-bottom">
             <div class="col-md-9 no-padding lib-item" data-category="view">
                 <div class="lib-panel">
                     <div class="row box-shadow">
                         <div class="col-md-6">
-                            <img class="lib-img-show" src="<?php echo $row["picture"]; ?>">
+                            <img class="lib-img-show" src="<?php echo $row["picture_url"]; ?>">
                         </div>
                         
                         <div class="col-md-6">
-                            <div class="lib-row lib-data">
-                            <p>Advt ID: <b><?php echo $row["ad_id"]; ?></b></p>
+                            <div class="lib-row lib-price">
+                            <p><b><?php echo $row["product_name"]; ?></b></p>
                             </div>
                             <div class="lib-row lib-data">
-                            <p>Seller ID: <b><?php echo $row["seller_id"]; ?></b></p>
+                            <p><?php echo $row["product_desc"]; ?></p>
                             </div>
                             <div class="lib-row lib-data">
-                            <p>Product: <b><?php echo $row["product_name"]; ?></b></p>
+                              <?php
+                                $seller_id = $row["seller_id"];
+                                $query2 = "SELECT email FROM users WHERE user_id = '$seller_id';";
+                                $result2 =  mysqli_query($db,$query2);
+                                $row2 = mysqli_fetch_assoc($result2);
+                              ?>
+                              <p>Sold by: <b><?php echo $row2["email"];?></b></p>
                             </div>
                             <div class="lib-row lib-data">
-                            <p>Description: <b><?php echo $row["product_desc"]; ?></b></p>
-                            </div>
-                            <div class="lib-row lib-data">
-                              <p>Year Of Purchase: <b><?php echo $row["year_of_purchase"]; ?></b></p>
+                              <p>Ad posted on: <?php echo $row["date_of_post"]; ?></p>
                             </div>
                             <div class="lib-row lib-price">
-                              <p>Expected Price: Rs <b><?php echo $row["price"]; ?></b></p>
-                            </div>
-                            <div class="lib-row lib-price">
-                              <p>Status: <b><?php echo $row["availability"]; ?></b></p>
-                            </div>
-                            <div class="lib-row lib-data">
-                              <p>Ad posted on: <b><?php echo $row["date_of_post"]; ?></b></p>
+                              <p><b>Rs <?php echo $row["price"]; ?></b></p>
                             </div>
                         </div>  
                     </div>

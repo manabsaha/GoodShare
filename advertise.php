@@ -114,13 +114,14 @@
       $yearOfPurchase = mysqli_escape_string($db,$_POST['yop']);
       $description = mysqli_escape_string($db,$_POST['description']);
       $expectedPrice = mysqli_escape_string($db,$_POST['expected_price']);
-      $picture = "";
+      $picture = "ad_image/ad_logo.jpg";
 
       $query1 = "INSERT INTO advertisements (seller_id,date_of_post,product_name,product_desc,year_of_purchase,picture_url,price) 
                 VALUES ('$owner','$today','$productName','$description','$yearOfPurchase','$picture','$expectedPrice')";
       $result1 = mysqli_query($db,$query1);
       if($result1){
-        echo "<script type='text/javascript'>alert('Successfully Advertised')</script>";      
+        echo "<script type='text/javascript'>alert('Successfully Advertised')</script>";
+        header("Location: home.php");      
       }
       else{
         echo "<script type='text/javascript'>alert('Failed! Please try again')</script>";

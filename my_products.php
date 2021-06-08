@@ -14,7 +14,7 @@
   <link rel="stylesheet" type="text/css" href="css/advertise.css">
 	<link rel="stylesheet" type="text/css" href="css/purchase.css">
 </head>
-<body style="background-color: #212F3C;">
+<body style="background-color: #212F3C;padding: 0;">
  
 	<nav class="navbar navbar-inverse">
   <div class="container">
@@ -24,7 +24,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <a class="navbar-brand" href="home.php">Adsells</a>
+      <a class="navbar-brand" href="home.php">GoodShare</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
@@ -46,7 +46,7 @@
 
 <?php
 $user_id = $_SESSION['user_id'];
-$query = "SELECT * FROM advertisements where seller_id = '$user_id'";
+$query = "SELECT * FROM advertisements where seller_id = '$user_id' ORDER BY ad_id DESC";
 $result = mysqli_query($db,$query);
 if(mysqli_num_rows($result) == 0){
   //echo "<script type='text/javascript'>alert('You have not Advertised any Product')</script>";?>
@@ -65,13 +65,13 @@ while ($row = mysqli_fetch_assoc($result)) {
                 <div class="lib-panel">
                     <div class="row box-shadow">
                         <div class="col-md-6">
-                            <img class="lib-img-show" src="<?php echo $row["picture"]; ?>">
+                            <img class="lib-img-show" src="<?php echo $row["picture_url"]; ?>">
                         </div>
                         
                         <div class="col-md-6">
-                            <div class="lib-row lib-data">
+                            <!-- <div class="lib-row lib-data">
                             <p>Advt ID: <b><?php echo $row["ad_id"]; ?></b></p>
-                            </div>
+                            </div> -->
                             <div class="lib-row lib-data">
                             <p>Product: <b><?php echo $row["product_name"]; ?></b></p>
                             </div>
@@ -87,12 +87,17 @@ while ($row = mysqli_fetch_assoc($result)) {
                             <div class="lib-row lib-data">
                               <p>Status: <b><?php echo $row["availability"]; ?></b></p>
                             </div>
-                            <!-- <input type="hidden" name="id" value="4"> -->
                             <?php
                                if ($row["buyer_id"]) {
                                	?>
                              <div class="lib-row lib-data">
-                              <p style="color: red;">SOLD TO: <b><?php echo $row["buyer_id"];?></b></p>
+                              <?php 
+                                $buyer_id = $row["buyer_id"];
+                                $query2 = "SELECT email FROM users WHERE user_id = '$buyer_id';";
+                                $result2 =  mysqli_query($db,$query2);
+                                $row2 = mysqli_fetch_assoc($result2);
+                              ?>
+                              <p style="color: red;">SOLD TO: <b><?php echo $row2["email"];?></b></p>
                             </div>
                             <?php 
                                }
@@ -102,8 +107,31 @@ while ($row = mysqli_fetch_assoc($result)) {
                               <p><b>Rs <?php echo $row["price"]; ?></b></p>
                             </div>
                             <div class="lib-row lib-data" style="margin-bottom: 8px;">
-                              <button class="btn btn-primary">MARK AS SOLD</button>
-                              <button class="btn btn-warning">DON'T WANT TO SELL</button>
+                              <?php if($row["availability"]=="available"){
+                                ?>
+                                  <form action="set_buyer.php" method="post">
+                                  <input type="hidden" name="advt_id" value="<?php echo $row['ad_id']; ?>">
+                                    <button type="submit" class="btn btn-primary" style="margin-bottom: 8px;">MARK AS SOLD</button>
+                                  </form>
+                                  <form action="remove_ad.php" method="post">
+                                    <input type="hidden" name="adv_id" value="<?php echo $row['ad_id']; ?>">
+                                    <button class="btn btn-warning" type="submit" onclick="confirm('Are you sure to remove this ad?');">
+                                    DON'T WANT TO SELL</button>
+                                  </form>
+                                <?php
+                              }
+                              else if($row["availability"]=="sold"){
+                                ?>
+                                <button class="btn btn-light">SOLD</button>
+                                <?php
+                              }
+                              else{
+                                ?>
+                                <button class="btn btn-light">REMOVED</button>
+                                <?php
+                              }
+                              ?>
+                              
                             </div>
                         </div>	
                     </div>
@@ -116,9 +144,8 @@ while ($row = mysqli_fetch_assoc($result)) {
         </div>
         
 </div>
-<?php } ?>
- <a href="set_buyer.php"><center><button style="width: 50%;" type="submit" id="sold" name="sold" class="btn btn-primary" >CLICK TO ADD SOLD ITEMS</button></center></a>	
- <br>	
- <br>
+<?php 
+} 
+?>
 
 

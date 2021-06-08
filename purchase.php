@@ -48,7 +48,7 @@
 
 <?php
 $user_id = $_SESSION['user_id'];
-$query = "SELECT * FROM advertisements WHERE seller_id <> '$user_id' AND availability = 'available'";
+$query = "SELECT * FROM advertisements WHERE seller_id <> '$user_id' AND availability = 'available' ORDER BY ad_id DESC";
 $result = mysqli_query($db,$query);
 while ($row = mysqli_fetch_assoc($result)) {?>
     	<div class="container">
@@ -57,7 +57,7 @@ while ($row = mysqli_fetch_assoc($result)) {?>
                 <div class="lib-panel">
                     <div class="row box-shadow">
                         <div class="col-md-6">
-                            <img class="lib-img-show" src="<?php echo $row["picture"]; ?>">
+                            <img class="lib-img-show" src="<?php echo $row["picture_url"]; ?>">
                         </div>
                         
                         <div class="col-md-6">
