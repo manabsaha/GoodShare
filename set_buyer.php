@@ -1,7 +1,8 @@
 <?php 
    require('inc/config.php');
-   //echo $_GET['id'];
-   
+   if(!isset($_POST['advt_id'])){
+    header("Location: home.php");
+   }
 ?>
 <!DOCTYPE html>
 <html>
@@ -50,11 +51,11 @@
 
 <div class="container">
   <h2 style="text-align: center;">Product Sold</h2>
-  <form class="form-horizontal" action="set_buyer.php" method="post">
+  <form class="form-horizontal" action="sold.php" method="post">
     <div class="form-group">
-      <!-- <label class="control-label col-sm-3" for="product_name">Product ID: <?php echo $_POST['advt_id'] ?></label> -->
+      <label class="control-label col-sm-3" for="product_name">Product ID: <?php echo $_POST['advt_id'] ?></label>
       <div class="col-sm-9">
-        <input type="hidden" value="<?php echo $_POST['advt_id'] ?>" name="advt_id" required disabled>
+        <input type="text" value="<?php echo $_POST['advt_id'] ?>" id="ad_id" name="ad_id" required>
       </div>
     </div>
     <div class="form-group">
@@ -70,37 +71,3 @@
     </div>
 </form>
 </div>
-
-<?php
-
-if(isset($_POST['submit'])){
-	$user_id = $_SESSION['user_id'];
-	$advt_id = mysqli_escape_string($db,$_POST['advt_id']);
-	$buyer_email = mysqli_escape_string($db,$_POST['buyer_email']);
-	//check if buyer id is not same to the id which is logged in
-	if($_SESSION['email'] == $buyer_email){
-		echo "<script type='text/javascript'>alert('Buyer ID cannot be same as Logged in ID')</script>";
-	}
-  else{
-    //$advt_id = $_SESSION['ad_id'];
-    $advt_id_num = (int)$advt_id;
-    //echo gettype($advt_id_num);
-    
-    $query = "SELECT user_id FROM users WHERE email = '$buyer_email'";
-    $result = mysqli_query($db,$query);
-    $row = mysqli_fetch_assoc($result);
-    $buyer_id = $row['user_id'];
-    $query = "UPDATE advertisements SET buyer_id = '$buyer_id',availability='sold' WHERE ad_id = '$advt_id_num' AND seller_id = '$user_id'";
-    $result = mysqli_query($db,$query);
-    if($result){
-       echo "<script type='text/javascript'>alert('Updated Succesfully')</script>";	
-       header("Location: my_products.php");
-    }
-    else{
-    	echo "<script type='text/javascript'>alert('Failed! Try again')</script>";
-    }
-
-  }
-}
-
-?>
