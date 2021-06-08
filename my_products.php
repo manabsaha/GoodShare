@@ -53,7 +53,7 @@ if(mysqli_num_rows($result) == 0){
   //echo "<script type='text/javascript'>alert('You have not Advertised any Product')</script>";?>
   <div>
     <br>
-    <h1>You have not listed any products!</h1>
+    <h1 style="color: #fff;">You have not listed any products!</h1>
   </div>
   <?php
 }

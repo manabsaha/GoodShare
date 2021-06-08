@@ -1,4 +1,9 @@
-
+<?php
+    session_start();
+    if(isset($_SESSION['user_id'])){
+      header("Location: home.php");
+    }
+?>
 <head>
  <meta charset="utf-8">
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
