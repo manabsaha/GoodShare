@@ -65,29 +65,30 @@
 </div>
 </div>-->
 <?php
-    $email_id = $_SESSION['email'];
-    $query = "SELECT * FROM Messages WHERE receiver_id ='$email_id'";
+    $user_id = $_SESSION['user_id'];
+    $query = "SELECT * FROM messages WHERE receiver_id ='$user_id' ORDER BY msg_date,msg_time DESC";
     $result = mysqli_query($db,$query);
 
     while ($row = mysqli_fetch_assoc($result)){
           $sender_id = $row["sender_id"];
-          $query2 = "SELECT *FROM Users WHERE Nitc_email_id = '$sender_id'";
-          $result2 = mysqli_query($db,$query2);
+          $query = "SELECT name,email FROM users WHERE user_id = '$sender_id'";
+          $result2 = mysqli_query($db,$query);
           $row2 = mysqli_fetch_assoc($result2);
-          $sender_name = $row2["User_name"];  
+          $sender_name = $row2["name"];
+          $sender_email = $row2["email"];
           ?> 
          <div class="container">
-<div class="row row-margin-bottom">
+           <div class="row row-margin-bottom">
             <div class="col-md-12 no-padding lib-item" data-category="view">
                 <div class="lib-panel">
                     <div class="row box-shadow">
                         
                         <div class="col-md-12">
                             <div class="lib-row lib-message">
-                                <b><?php echo $sender_id; ?></b>
+                                <b><?php echo $sender_name; ?></b>
+                                <p><?php echo $sender_email; ?></p>
                                 <!--<div class="lib-header-seperator"></div>-->
                             </div> 
-
                             <div class="lib-row lib-data">
                                  <?php echo $row["message"]; ?>
                             </div>

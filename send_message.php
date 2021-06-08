@@ -75,27 +75,34 @@
     </div>
 </form>
 </div>
-<footer class="container-fluid bg-4 text-center">
-  <p> <a href="home.php">www.adsells.com </a>| Designed by Prajwal Ghoradkar</p> 
-</footer>
 
 <?php
-  $email_id = $_SESSION['email'];
   if(isset($_POST['submit'])){
+    $sender_id = $_SESSION['user_id'];
     $rec_email = mysqli_escape_string($db,$_POST['email_id']);
     $message = mysqli_escape_string($db,$_POST['msg'] );
-
     $today_date =  date("Y-m-d");
     $time = date("h:i A");
     //echo $today_date." ".$time;
     //echo $time;
-    $query = "INSERT INTO Messages (sender_id,receiver_id,message,msg_date,msg_time) VALUES ('$email_id','$rec_email','$message','$today_date','$time')";
+    $query = "SELECT user_id,email FROM users WHERE email = '$rec_email'";
     $result = mysqli_query($db,$query);
-    if($result){
-         echo "<script type='text/javascript'>alert('Message sent Successfully!')</script>";
+    if(mysqli_num_rows($result) != 0){
+         while ($row = mysqli_fetch_assoc($result)){
+              $rec_id = $row['user_id'];
+         }
+          $query = "INSERT INTO messages (sender_id,receiver_id,message,msg_date,msg_time) 
+              VALUES ('$sender_id','$rec_id','$message','$today_date','$time')";
+          $result = mysqli_query($db,$query);
+          if($result){
+               echo "<script type='text/javascript'>alert('Message sent Successfully!')</script>";
+          }
+          else{
+               echo "<script type='text/javascript'>alert('Error in sending message!!! Please try again.')</script>";
+          }
     }
     else{
-         echo "<script type='text/javascript'>alert('Error in sending message!!! Please try again.')</script>";
+         echo "<script type='text/javascript'>alert('Recepient email not found.')</script>";
     }
   }
 ?>

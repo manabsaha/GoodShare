@@ -63,11 +63,11 @@
 
 <center>
     <div class="text-center">
-        <h1 class="tp1">Are You Ready?</h1>
+        <h1 class="tp1">Buy or Sell Goods</h1>
 
         <div class="button">
         	<a href="advertise.php" class="btn-one button_n">Advertise</a>
-        	<a href="purchase.php" class="btn-two button_n">Purchase</a>
+        	<a href="purchase.php" class="btn-two button_n">Explore</a>
         </div>
     </div>
     </center>
