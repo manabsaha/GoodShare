@@ -58,13 +58,13 @@ if(mysqli_num_rows($result) == 0){
 <?php
 }
 while ($row = mysqli_fetch_assoc($result)) { ?>
-      <div class="container">
+      <div class="container" style=" width:60%; margin:auto">
             <div class="row row-margin-bottom">
-            <div class="col-md-9 no-padding lib-item" data-category="view">
+            <div class="no-padding lib-item" data-category="view">
                 <div class="lib-panel">
                     <div class="row box-shadow">
                         <div class="col-md-6">
-                            <img class="lib-img-show" src="<?php echo $row["picture_url"]; ?>">
+                            <img class="lib-img-show" style="padding:20%" src="<?php echo $row["picture_url"]; ?>">
                         </div>
                         
                         <div class="col-md-6">
