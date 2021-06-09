@@ -46,7 +46,7 @@ require('inc/config.php');
 
   <!--<div class="container">-->
   	<div style="background-color: #212F3C;  width: 100%;">
-  		<p style="color: white;padding: 30px 30px 30px 30px;font-size: 25px;text-align: center;">GoodShare is a free classified site for sharing the goods within the campus of Tezpur University. Sell anything from  mobiles, laptops, books and all wide ranges of products. Submit ads for free. If you want to buy something - here you will find interesting items and easily accessible than store. Start buying and selling in the most easy way on GoodShare.</p>
+  		<p style="color: white;padding: 30px 30px 30px 30px;font-size: 25px;text-align: center;">GoodShare is a free site for sharing the goods within the campus of Tezpur University. Sell anything from  mobiles, laptops, books, cycles and all wide ranges of products. Submit ads for free. If you want to buy something - here you will find interesting items and easily accessible than store. Start buying and selling in the most easy way on GoodShare.</p>
   		<center><h2 style="padding: 10px 10px 30px 10px;color: white;">Connect Us</h2></center>
   	            <div style="padding-bottom: 30px;">
   	            <center><a href="#"><i id="social-fb" class="fa fa-facebook-square fa-3x social"></i></a>

@@ -53,7 +53,7 @@ if(mysqli_num_rows($result) == 0){
   //echo "<script type='text/javascript'>alert('You have not Bought any Product')</script>";?>
   <div>
     <br>
-    <h1 style="padding: 0 5%;">You have not bought any products!</h1>
+    <h1 style="color:white; text-align:center;padding: 0 5%;">You have not bought any products!</h1>
   </div>
 <?php
 }

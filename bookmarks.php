@@ -17,7 +17,7 @@
 		<link rel="stylesheet" type="text/css" href="css/advertise.css">
 		<link rel="stylesheet" type="text/css" href="css/purchase.css">
 </head>
-<body style="background-color: #212F3C;"><!--#CCD1D1  #5D6D7E -->
+<body style="background-color: #212F3C;padding: 0;"><!--#CCD1D1  #5D6D7E -->
  
 	<nav class="navbar navbar-inverse">
   <div class="container">
@@ -117,7 +117,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 if($empty_flag)
 {
 ?>
-<h2 style='color:white; text-align:center'>NO BOOKMARKS FOUND</h2>
+<h2 style='color:white; text-align:center;padding: 0 5%;'>NO BOOKMARKS FOUND</h2>
 <?php
 }
 ?>

@@ -53,9 +53,8 @@
   <h2 style="text-align: center;">Product Sold</h2>
   <form class="form-horizontal" action="sold.php" method="post">
     <div class="form-group">
-      <label class="control-label col-sm-3" for="product_name">Product ID: <?php echo $_POST['advt_id'] ?></label>
       <div class="col-sm-9">
-        <input type="text" value="<?php echo $_POST['advt_id'] ?>" id="ad_id" name="ad_id" required>
+        <input type="hidden" value="<?php echo $_POST['advt_id'] ?>" id="ad_id" name="ad_id" disabled>
       </div>
     </div>
     <div class="form-group">

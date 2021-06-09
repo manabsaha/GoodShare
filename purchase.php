@@ -16,7 +16,7 @@
 		<link rel="stylesheet" type="text/css" href="css/advertise.css">
 		<link rel="stylesheet" type="text/css" href="css/purchase.css">
 </head>
-<body style="background-color: #212F3C;"><!--#CCD1D1  #5D6D7E -->
+<body style="background-color: #212F3C;padding: 0;"><!--#CCD1D1  #5D6D7E -->
  
 	<nav class="navbar navbar-inverse">
   <div class="container">
